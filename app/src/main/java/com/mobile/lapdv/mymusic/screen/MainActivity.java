@@ -1,7 +1,9 @@
-package com.mobile.lapdv.mymusic;
+package com.mobile.lapdv.mymusic.screen;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.mobile.lapdv.mymusic.R;
 
 public class MainActivity extends AppCompatActivity {
 
