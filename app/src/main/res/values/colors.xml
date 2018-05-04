@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPrimary">#FF2E1309</color>
+    <color name="colorPrimaryDark">#FF2E1309</color>
+    <color name="colorAccent">#481e0f</color>
+    <color name="md_brown_800">#ff4e342e</color>
+    <color name="color_md_red_900">#ffb71c1c</color>
+    <color name="color_md_brown_900">#ff3e2723</color>
+    <color name="color_md_brown_custom_900">#983e2723</color>
+
+    <!-- Toolbar -->
+    <color name="color_md_amber_A100">#ffffe57f</color>
+    <color name="color_md_amber_900">#ffff6f00</color>
+
 </resources>

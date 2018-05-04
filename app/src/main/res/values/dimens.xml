@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dimen_large">15dp</dimen>
+    <dimen name="layout_width_40dp">40dp</dimen>
+    <dimen name="layout_height_65dp">65dp</dimen>
+    <dimen name="default_tba_title_text_size">18sp</dimen>
+
+    <!--navigation-->
+    <dimen name="circle_image_view_width">96dp</dimen>
+    <dimen name="nav_header_width">200dp</dimen>
+
+    <!--text size-->
+    <dimen name="text_size_normal">16sp</dimen>
+
+    <!--element_spacing-->
+    <dimen name="element_spacing_x3">24dp</dimen>
+    <dimen name="element_spacing_x4.5">36dp</dimen>
+</resources>
