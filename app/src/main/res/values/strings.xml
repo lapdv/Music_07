@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MyMusic</string>
+
+    <!--navigation drawer-->
+    <string name="nav_drawer_item_home">Home</string>
+    <string name="nav_drawer_item_favorite">Favourite</string>
+    <string name="nav_drawer_item_offline">Offline</string>
+    <string name="nav_drawer_item_communicate">Communicate</string>
+    <string name="nav_drawer_item_about">About</string>
+    <string name="nav_drawer_item_rate">Rate</string>
+
 </resources>

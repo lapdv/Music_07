@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ToolBarApp -->
+    <declare-styleable name="ToolBarApp">
+        <attr name="tbaTitle" format="boolean" />
+        <attr name="tbaTextTitle" format="string" />
+        <attr name="tbaColorTitle" format="color" />
+        <attr name="tbaSizeTitle" format="dimension" />
+        <attr name="tbaColorBg" format="color" />
+        <attr name="tbaTextTitleStyle">tbaTextTitleStyle
+            <enum name="bold" value="1" />
+            <enum name="normal" value="0" />
+            <enum name="italic" value="2" />
+        </attr>
+        <attr name="tbaRight" format="boolean" />
+        <attr name="tbaTextRight" format="string" />
+        <attr name="tbaLeft" format="boolean" />
+        <attr name="tbaTextLeft" format="reference" />
+    </declare-styleable>
+</resources>
