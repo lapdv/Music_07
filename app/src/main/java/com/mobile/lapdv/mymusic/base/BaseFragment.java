@@ -76,5 +76,4 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         }
         super.onDestroy();
     }
-
 }

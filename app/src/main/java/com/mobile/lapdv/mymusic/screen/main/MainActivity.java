@@ -3,15 +3,18 @@ package com.mobile.lapdv.mymusic.screen.main;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseActivity;
 import com.mobile.lapdv.mymusic.screen.main.presenter.MainContract;
+import com.mobile.lapdv.mymusic.screen.home.HomeFragment;
 import com.mobile.lapdv.mymusic.screen.main.view.MainView;
 import com.mobile.lapdv.mymusic.widget.ToolBarApp;
 
@@ -21,6 +24,7 @@ public class MainActivity extends BaseActivity implements MainView {
     private MainContract mMainContract;
     private ToolBarApp mToolBar;
     private DrawerLayout mDrawerLayout;
+    private FrameLayout mFrameLayoutContent;
     private NavigationView mNavigationView;
     private RelativeLayout mRelativeLayoutContent;
 
@@ -28,6 +32,7 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void initView() {
         mMainContract = new MainContract();
         mMainContract.onAttach(this);
+        mFrameLayoutContent = findViewById(R.id.frame_content);
         mToolBar = findViewById(R.id.tool_bar);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mNavigationView = findViewById(R.id.nav_view);
@@ -94,7 +99,7 @@ public class MainActivity extends BaseActivity implements MainView {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_sub_home:
-                        // TODO open home screen
+                        gotoFragment(new HomeFragment(), null);
                         break;
                     case R.id.nav_sub_favorite:
                         // TODO open favorite screen
@@ -122,6 +127,7 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void initData() {
         if (mMainContract.isViewAttached()) {
             //TODO init data
+            gotoFragment(new HomeFragment(), null);
         }
     }
 

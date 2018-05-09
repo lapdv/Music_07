@@ -59,7 +59,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         fragment.setArguments(bundle);
         fragmentTransaction.replace(getContainerId(), fragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

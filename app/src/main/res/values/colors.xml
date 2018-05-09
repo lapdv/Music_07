@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#FF2E1309</color>
-    <color name="colorPrimaryDark">#FF2E1309</color>
-    <color name="colorAccent">#481e0f</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_custom_white">#e1e1e1</color>
+    <color name="color_black">#000000</color>
+    <color name="colorPrimary">#FF1E1E1E</color>
+    <color name="colorPrimaryDark">#FF3B3B3B</color>
+    <color name="colorAccent">#FF2D2D2D</color>
+    <color name="colorAccentBlur">#c42d2d2d</color>
     <color name="md_brown_800">#ff4e342e</color>
     <color name="color_md_red_900">#ffb71c1c</color>
-    <color name="color_md_brown_900">#ff3e2723</color>
+    <color name="color_md_brown_900">#FF1C1C1C</color>
     <color name="color_md_brown_custom_900">#983e2723</color>
 
     <!-- Toolbar -->
     <color name="color_md_amber_A100">#ffffe57f</color>
-    <color name="color_md_amber_900">#ffff6f00</color>
+    <color name="color_md_amber_900">#FFD1A93D</color>
+    <color name="color_bg_item_genre">#ecffffff</color>
 
 </resources>

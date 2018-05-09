@@ -3,25 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_md_brown_900">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mobile.lapdv.mymusic.widget.ToolBarApp
-            android:id="@+id/tool_bar"
+        <include
+            android:id="@+id/app_bar_layout"
+            layout="@layout/app_bar_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true" />
-
-        <FrameLayout
-            android:id="@+id/frame_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tool_bar" />
 
     </RelativeLayout>
 
