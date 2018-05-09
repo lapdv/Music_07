@@ -24,7 +24,7 @@ public abstract class BaseRecyclerAdapter<T, VH extends BaseViewHolder>
     private VH mHolder;
     private OnRecyclerViewItemClick<T> mOnRecyclerViewItemClick;
 
-    public void setmOnRecyclerViewItemClick(OnRecyclerViewItemClick<T> onRecyclerViewItemClick) {
+    public void setOnRecyclerViewItemClick(OnRecyclerViewItemClick<T> onRecyclerViewItemClick) {
         this.mOnRecyclerViewItemClick = onRecyclerViewItemClick;
     }
 
@@ -51,7 +51,7 @@ public abstract class BaseRecyclerAdapter<T, VH extends BaseViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
-        if (holder != null) return;
+        if (holder == null) return;
         if (holder instanceof BaseViewHolder) {
             this.mHolder = (VH) holder;
             if (mData != null && mData.size() > position && mData.get(position) != null) {
