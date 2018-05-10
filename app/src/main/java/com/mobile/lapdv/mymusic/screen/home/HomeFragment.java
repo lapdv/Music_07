@@ -8,7 +8,7 @@ import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseFragment;
 import com.mobile.lapdv.mymusic.callback.OnRecyclerViewItemClick;
 import com.mobile.lapdv.mymusic.data.model.Genre;
-import com.mobile.lapdv.mymusic.data.source.remote.GenreReopository;
+import com.mobile.lapdv.mymusic.data.source.GenreReopository;
 import com.mobile.lapdv.mymusic.screen.home.adapter.GenresAdapter;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment implements HomeContract.View {
 
-    private HomePresenter mHomePresenter;
+    private HomeContract.Presenter mHomePresenter;
     private RecyclerView mGenresRecyclerView;
     private GenresAdapter mGenresAdapter;
 

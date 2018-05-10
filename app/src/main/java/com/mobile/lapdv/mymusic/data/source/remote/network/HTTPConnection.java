@@ -1,4 +1,4 @@
-package com.mobile.lapdv.mymusic.network;
+package com.mobile.lapdv.mymusic.data.source.remote.network;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
