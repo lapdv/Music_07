@@ -1,4 +1,4 @@
-package com.mobile.lapdv.mymusic.network;
+package com.mobile.lapdv.mymusic.data.source.remote.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -3,7 +3,6 @@ package com.mobile.lapdv.mymusic.screen.main;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
@@ -13,15 +12,13 @@ import android.widget.RelativeLayout;
 
 import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseActivity;
-import com.mobile.lapdv.mymusic.screen.main.presenter.MainContract;
 import com.mobile.lapdv.mymusic.screen.home.HomeFragment;
-import com.mobile.lapdv.mymusic.screen.main.view.MainView;
 import com.mobile.lapdv.mymusic.widget.ToolBarApp;
 
-public class MainActivity extends BaseActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainContrack.View {
 
     private static final float END_SCALE = 0.7f;
-    private MainContract mMainContract;
+    private MainPresenter mMainContract;
     private ToolBarApp mToolBar;
     private DrawerLayout mDrawerLayout;
     private FrameLayout mFrameLayoutContent;
@@ -30,7 +27,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void initView() {
-        mMainContract = new MainContract();
+        mMainContract = new MainPresenter();
         mMainContract.onAttach(this);
         mFrameLayoutContent = findViewById(R.id.frame_content);
         mToolBar = findViewById(R.id.tool_bar);
