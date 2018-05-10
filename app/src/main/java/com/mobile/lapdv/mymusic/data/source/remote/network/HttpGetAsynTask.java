@@ -1,10 +1,11 @@
-package com.mobile.lapdv.mymusic.network;
+package com.mobile.lapdv.mymusic.data.source.remote.network;
 
 import android.os.AsyncTask;
 import android.os.Build;
 
-import com.mobile.lapdv.mymusic.screen.home.model.GenresModel;
-import com.mobile.lapdv.mymusic.screen.home.model.TrackModel;
+import com.mobile.lapdv.mymusic.data.model.Genre;
+import com.mobile.lapdv.mymusic.data.model.Track;
+import com.mobile.lapdv.mymusic.data.source.GenreDataSource;
 import com.mobile.lapdv.mymusic.utils.EmptyUtils;
 
 import org.json.JSONArray;
@@ -12,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lap on 08/05/2018.
@@ -20,12 +22,13 @@ import java.util.ArrayList;
 public class HttpGetAsynTask extends AsyncTask<String, Void, String> {
 
     private int mPosition;
-    private OnFetchDataListener mOnFetchDataListener;
-    private ArrayList<GenresModel> mGenresModels = new ArrayList<>();
+    private List<Genre> mGenresModels;
+    private GenreDataSource.OnFetchDataListener<Genre> mOnFetchDataListener;
 
-    public HttpGetAsynTask(OnFetchDataListener onFetchDataListener, int position) {
-        mOnFetchDataListener = onFetchDataListener;
-        this.mPosition = position;
+    public HttpGetAsynTask(int position, GenreDataSource.OnFetchDataListener<Genre> listener) {
+        mPosition = position;
+        mOnFetchDataListener = listener;
+        mGenresModels = new ArrayList<>();
     }
 
     public void executeTask(String url) {
@@ -47,23 +50,23 @@ public class HttpGetAsynTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String data) {
         super.onPostExecute(data);
         if (EmptyUtils.isNotEmpty(data)) {
-            GenresModel genresModel = new GenresModel(parseTrackJSONObject(data));
+            Genre genresModel = new Genre(parseTrackJSONObject(data));
             genresModel.setPosition(mPosition);
             mGenresModels.add(genresModel);
             if (mOnFetchDataListener != null) {
-                mOnFetchDataListener.onSuccess(mGenresModels, mPosition);
+                mOnFetchDataListener.onFetchDataSuccess(mGenresModels);
             }
         }
     }
 
-    private ArrayList<TrackModel> parseTrackJSONObject(String data) {
-        ArrayList<TrackModel> trackModelArrayList = new ArrayList<>();
+    private List<Track> parseTrackJSONObject(String data) {
+        ArrayList<Track> trackModelArrayList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(data);
-            String collection = jsonObject.getString(TrackModel.TrackEntity.COLLECTION);
+            String collection = jsonObject.getString(Track.TrackEntity.COLLECTION);
             JSONArray arrayCollection = new JSONArray(collection);
             for (int i = 0; i < arrayCollection.length(); i++) {
-                String track = arrayCollection.getJSONObject(i).getString(TrackModel.TrackEntity.TRACK);
+                String track = arrayCollection.getJSONObject(i).getString(Track.TrackEntity.TRACK);
                 JSONObject jsonObjectTrack = new JSONObject(track);
                 trackModelArrayList.add(setDataTrack(jsonObjectTrack));
             }
@@ -73,38 +76,34 @@ public class HttpGetAsynTask extends AsyncTask<String, Void, String> {
         return trackModelArrayList;
     }
 
-    private TrackModel setDataTrack(JSONObject jsonObjectTrack) throws JSONException {
-        TrackModel trackModel = new TrackModel();
+    private Track setDataTrack(JSONObject jsonObjectTrack) throws JSONException {
+        Track trackModel = new Track();
         trackModel.setArtworkUrl(jsonObjectTrack
-                .getString(TrackModel.TrackEntity.ARTWORK_URL));
+                .getString(Track.TrackEntity.ARTWORK_URL));
         trackModel.setDescription(jsonObjectTrack
-                .getString(TrackModel.TrackEntity.DESCRIPTION));
+                .getString(Track.TrackEntity.DESCRIPTION));
         trackModel.setDownloadable(jsonObjectTrack
-                .getBoolean(TrackModel.TrackEntity.DOWNLOADABLE));
+                .getBoolean(Track.TrackEntity.DOWNLOADABLE));
         trackModel.setDownloadUrl(jsonObjectTrack
-                .getString(TrackModel.TrackEntity.DOWNLOAD_URL));
+                .getString(Track.TrackEntity.DOWNLOAD_URL));
         trackModel.setDuration(jsonObjectTrack
-                .getLong(TrackModel.TrackEntity.DURATION));
+                .getLong(Track.TrackEntity.DURATION));
         trackModel.setId(jsonObjectTrack
-                .getInt(TrackModel.TrackEntity.ID));
+                .getInt(Track.TrackEntity.ID));
         trackModel.setLikesCount(jsonObjectTrack
-                .getInt(TrackModel.TrackEntity.LIKES_COUNT));
+                .getInt(Track.TrackEntity.LIKES_COUNT));
         trackModel.setPlaybackCount(jsonObjectTrack
-                .getInt(TrackModel.TrackEntity.PLAYBACK_COUNT));
+                .getInt(Track.TrackEntity.PLAYBACK_COUNT));
         trackModel.setTitle(jsonObjectTrack
-                .getString(TrackModel.TrackEntity.TITLE));
+                .getString(Track.TrackEntity.TITLE));
         trackModel.setUri(jsonObjectTrack
-                .getString(TrackModel.TrackEntity.URI));
-        String user = jsonObjectTrack.getString(TrackModel.TrackEntity.USER);
+                .getString(Track.TrackEntity.URI));
+        String user = jsonObjectTrack.getString(Track.TrackEntity.USER);
         JSONObject jsonObjectUser = new JSONObject(user);
         trackModel.setUsername(jsonObjectUser
-                .getString(TrackModel.TrackEntity.USERNAME));
+                .getString(Track.TrackEntity.USERNAME));
         trackModel.setAvatarUrl(jsonObjectUser
-                .getString(TrackModel.TrackEntity.AVATAR_URL));
+                .getString(Track.TrackEntity.AVATAR_URL));
         return trackModel;
-    }
-
-    public interface OnFetchDataListener {
-        void onSuccess(ArrayList<GenresModel> data, int position);
     }
 }

@@ -2,8 +2,8 @@ package com.mobile.lapdv.mymusic.screen.home;
 
 import com.mobile.lapdv.mymusic.base.mvp.BasePresenter;
 import com.mobile.lapdv.mymusic.data.model.Genre;
-import com.mobile.lapdv.mymusic.data.source.remote.GenreDataSource;
-import com.mobile.lapdv.mymusic.data.source.remote.GenreReopository;
+import com.mobile.lapdv.mymusic.data.source.GenreDataSource;
+import com.mobile.lapdv.mymusic.data.source.GenreReopository;
 
 import java.util.ArrayList;
 import java.util.Collections;
