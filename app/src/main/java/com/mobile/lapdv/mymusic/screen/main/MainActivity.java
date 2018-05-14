@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseActivity;
+import com.mobile.lapdv.mymusic.screen.favourite.FavoriteFragment;
 import com.mobile.lapdv.mymusic.screen.home.HomeFragment;
 import com.mobile.lapdv.mymusic.widget.ToolBarApp;
 
@@ -26,7 +27,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     private RelativeLayout mRelativeLayoutContent;
 
     @Override
-    protected void initView() {;
+    protected void initView() {
+        ;
         mMainPresenter = new MainPresenter();
         mMainPresenter.onAttach(this);
         mFrameLayoutContent = findViewById(R.id.frame_content);
@@ -99,7 +101,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                         gotoFragment(new HomeFragment(), null);
                         break;
                     case R.id.nav_sub_favorite:
-                        // TODO open favorite screen
+                        gotoFragment(new FavoriteFragment(), null);
                         break;
                     case R.id.nav_sub_music_offline:
                         // TODO open music offline screen
@@ -123,7 +125,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     protected void initData() {
         if (mMainPresenter.isViewAttached()) {
-            //TODO init data
             gotoFragment(new HomeFragment(), null);
         }
     }
