@@ -18,10 +18,11 @@ public class HomePresenter extends BasePresenter<HomeContract.View>
         implements HomeContract.Presenter, GenreDataSource.OnFetchDataListener<Genre> {
 
     private GenreReopository mGenreReopository;
-    private List<Genre> mGenresModels = new ArrayList<>();
+    private List<Genre> mGenresModels;
 
     public HomePresenter(GenreReopository reopository) {
         mGenreReopository = reopository;
+        mGenresModels = new ArrayList<>();
     }
 
     @Override
@@ -31,8 +32,10 @@ public class HomePresenter extends BasePresenter<HomeContract.View>
 
     @Override
     public void onFetchDataSuccess(List<Genre> data) {
-        mGenresModels.addAll(data);
-        sortGenresResult(mGenresModels);
+        synchronized (data) {
+            mGenresModels.addAll(data);
+            sortGenresResult(mGenresModels);
+        }
         getView().getSongsSuccess(mGenresModels);
     }
 

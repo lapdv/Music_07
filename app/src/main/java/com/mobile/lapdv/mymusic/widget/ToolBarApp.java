@@ -62,11 +62,11 @@ public class ToolBarApp extends ConstraintLayout {
     }
 
     private void initView() {
-        mTextToolBarCenter = mView.findViewById(R.id.tv_tool_bar_center);
-        mTextToolBarRight = mView.findViewById(R.id.tv_tool_bar_right);
-        mTextToolBarLeft = mView.findViewById(R.id.tv_title);
-        mIconToolBarLeft = mView.findViewById(R.id.iv_toolbar_left);
-        mIconToolBarRight = mView.findViewById(R.id.iv_toolbar_right);
+        mTextToolBarCenter = mView.findViewById(R.id.text_title);
+        mTextToolBarRight = mView.findViewById(R.id.text_tool_bar_right);
+        mTextToolBarLeft = mView.findViewById(R.id.text_tool_bar_left);
+        mIconToolBarLeft = mView.findViewById(R.id.image_toolbar_left);
+        mIconToolBarRight = mView.findViewById(R.id.image_toolbar_right);
     }
 
     private void initTitle(TypedArray typedArray) {
