@@ -60,8 +60,10 @@ public abstract class BaseConnection {
             e.printStackTrace();
         } finally {
             try {
-                br.close();
-                is.close();
+                if (br != null) {
+                    br.close();
+                    is.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

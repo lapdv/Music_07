@@ -6,6 +6,7 @@ import android.os.Build;
 import com.mobile.lapdv.mymusic.data.model.Genre;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.data.source.GenreDataSource;
+import com.mobile.lapdv.mymusic.utils.Constant;
 import com.mobile.lapdv.mymusic.utils.EmptyUtils;
 
 import org.json.JSONArray;
@@ -78,32 +79,36 @@ public class HttpGetAsynTask extends AsyncTask<String, Void, String> {
 
     private Track setDataTrack(JSONObject jsonObjectTrack) throws JSONException {
         Track trackModel = new Track();
-        trackModel.setArtworkUrl(jsonObjectTrack
-                .getString(Track.TrackEntity.ARTWORK_URL));
-        trackModel.setDescription(jsonObjectTrack
-                .getString(Track.TrackEntity.DESCRIPTION));
-        trackModel.setDownloadable(jsonObjectTrack
-                .getBoolean(Track.TrackEntity.DOWNLOADABLE));
-        trackModel.setDownloadUrl(jsonObjectTrack
-                .getString(Track.TrackEntity.DOWNLOAD_URL));
-        trackModel.setDuration(jsonObjectTrack
-                .getLong(Track.TrackEntity.DURATION));
-        trackModel.setId(jsonObjectTrack
-                .getInt(Track.TrackEntity.ID));
-        trackModel.setLikesCount(jsonObjectTrack
-                .getInt(Track.TrackEntity.LIKES_COUNT));
-        trackModel.setPlaybackCount(jsonObjectTrack
-                .getInt(Track.TrackEntity.PLAYBACK_COUNT));
-        trackModel.setTitle(jsonObjectTrack
-                .getString(Track.TrackEntity.TITLE));
-        trackModel.setUri(jsonObjectTrack
-                .getString(Track.TrackEntity.URI));
-        String user = jsonObjectTrack.getString(Track.TrackEntity.USER);
-        JSONObject jsonObjectUser = new JSONObject(user);
-        trackModel.setUsername(jsonObjectUser
-                .getString(Track.TrackEntity.USERNAME));
-        trackModel.setAvatarUrl(jsonObjectUser
-                .getString(Track.TrackEntity.AVATAR_URL));
+        try {
+            trackModel.setArtworkUrl(jsonObjectTrack
+                    .getString(Track.TrackEntity.ARTWORK_URL));
+            trackModel.setDescription(jsonObjectTrack
+                    .getString(Track.TrackEntity.DESCRIPTION));
+            trackModel.setDownloadable(jsonObjectTrack
+                    .getBoolean(Track.TrackEntity.DOWNLOADABLE));
+            trackModel.setDownloadUrl(jsonObjectTrack
+                    .getString(Track.TrackEntity.DOWNLOAD_URL));
+            trackModel.setDuration(jsonObjectTrack
+                    .getLong(Track.TrackEntity.DURATION));
+            trackModel.setId(jsonObjectTrack
+                    .getInt(Track.TrackEntity.ID));
+            trackModel.setLikesCount(jsonObjectTrack
+                    .getInt(Track.TrackEntity.LIKES_COUNT));
+            trackModel.setPlaybackCount(jsonObjectTrack
+                    .getInt(Track.TrackEntity.PLAYBACK_COUNT));
+            trackModel.setTitle(jsonObjectTrack
+                    .getString(Track.TrackEntity.TITLE));
+            trackModel.setUri(jsonObjectTrack
+                    .getString(Track.TrackEntity.URI));
+            String user = jsonObjectTrack.getString(Track.TrackEntity.USER);
+            JSONObject jsonObjectUser = new JSONObject(user);
+            trackModel.setUsername(jsonObjectUser
+                    .getString(Track.TrackEntity.USERNAME));
+            trackModel.setAvatarUrl(Constant.replaceAvartarUrl(jsonObjectUser
+                    .getString(Track.TrackEntity.AVATAR_URL)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return trackModel;
     }
 }

@@ -24,9 +24,10 @@ import java.util.List;
 public class CustomTrackRecyclerView extends ConstraintLayout {
 
     private RecyclerView mRecyclerViewSong;
-    private OnClickItemRecyclerView mOnClickItemRecyclerView;
+    private OnRecyclerViewItemClick<Track> mOnClickItemRecyclerView;
+    private TrackAdapter mTrackAdapter;
 
-    public void setOnClickItemRecyclerView(OnClickItemRecyclerView onClickItemRecyclerView) {
+    public void setOnClickItemRecyclerView(OnRecyclerViewItemClick<Track> onClickItemRecyclerView) {
         mOnClickItemRecyclerView = onClickItemRecyclerView;
     }
 
@@ -54,10 +55,10 @@ public class CustomTrackRecyclerView extends ConstraintLayout {
 
     public void setAdapter(List<Track> mData) {
         if (EmptyUtils.isNotEmpty(mData)) {
-            TrackAdapter trackAdapter = new TrackAdapter(getContext());
-            trackAdapter.setData(mData);
-            mRecyclerViewSong.setAdapter(trackAdapter);
-            trackAdapter.setOnRecyclerViewItemClick(new OnRecyclerViewItemClick<Track>() {
+            mTrackAdapter = new TrackAdapter(getContext());
+            mTrackAdapter.setData(mData);
+            mRecyclerViewSong.setAdapter(mTrackAdapter);
+            mTrackAdapter.setOnRecyclerViewItemClick(new OnRecyclerViewItemClick<Track>() {
                 @Override
                 public void onItemClick(Track trackModel, int position) {
                     if (mOnClickItemRecyclerView != null) {

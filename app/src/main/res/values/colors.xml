@@ -17,5 +17,10 @@
     <color name="color_md_amber_A100">#ffffe57f</color>
     <color name="color_md_amber_900">#FFD1A93D</color>
     <color name="color_bg_item_genre">#ecffffff</color>
+    <color name="color_md_amber">#FFDA44</color>
+
+    <!--Black-->
+    <color name="black_transparent">#e01e1e1e</color>
+    <color name="black_transparent_item">#f21e1e1e</color>
 
 </resources>

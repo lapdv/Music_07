@@ -1,5 +1,7 @@
 package com.mobile.lapdv.mymusic.screen.home;
 
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,9 +10,12 @@ import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseFragment;
 import com.mobile.lapdv.mymusic.callback.OnRecyclerViewItemClick;
 import com.mobile.lapdv.mymusic.data.model.Genre;
+import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.data.source.GenreReopository;
 import com.mobile.lapdv.mymusic.screen.home.adapter.GenresAdapter;
+import com.mobile.lapdv.mymusic.screen.playmusic.PlayMusicActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +44,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         mHomePresenter = new HomePresenter(GenreReopository.getInstance());
         mHomePresenter.onAttach(this);
         mGenresAdapter = new GenresAdapter(getBaseActivity());
-        mGenresAdapter.setOnRecyclerViewItemClick(onClickItemRecyclerView());
         mHomePresenter.getSongs();
     }
 
@@ -49,22 +53,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     }
 
     @Override
-    public void getSongsSuccess(List<Genre> genresModels) {
+    public void getSongsSuccess(final List<Genre> genresModels) {
         mGenresAdapter.setData(genresModels);
         mGenresRecyclerView.setAdapter(mGenresAdapter);
+        //TODO start service send data
     }
 
     @Override
     public void getSongsFailure(String messages) {
         // TODO: 09/05/2018
-    }
-
-    private OnRecyclerViewItemClick<Genre> onClickItemRecyclerView() {
-        return new OnRecyclerViewItemClick<Genre>() {
-            @Override
-            public void onItemClick(Genre genresModel, int position) {
-
-            }
-        };
     }
 }
