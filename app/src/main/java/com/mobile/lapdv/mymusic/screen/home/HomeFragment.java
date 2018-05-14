@@ -56,6 +56,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     public void getSongsSuccess(final List<Genre> genresModels) {
         mGenresAdapter.setData(genresModels);
         mGenresRecyclerView.setAdapter(mGenresAdapter);
+        mGenresAdapter.setTrackOnItemClick(new OnRecyclerViewItemClick<Track>() {
+            @Override
+            public void onItemClick(Track track, int position) {
+                getBaseActivity().openActivity(PlayMusicActivity.class);
+            }
+        });
         //TODO start service send data
     }
 
