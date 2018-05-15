@@ -36,4 +36,5 @@
     <dimen name="spacing_chvron_right">10dp</dimen>
     <dimen name="item_radius_genre">5dp</dimen>
     <dimen name="dimen_radius_2dp">2dp</dimen>
+    <dimen name="layout_width_8dp">8dp</dimen>
 </resources>
