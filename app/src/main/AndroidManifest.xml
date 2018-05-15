@@ -18,10 +18,15 @@
             </intent-filter>
         </activity>
 
+        <!--PlayMusicActivity-->
         <activity
             android:name=".screen.playmusic.PlayMusicActivity"
             android:theme="@style/Theme.Design.NoActionBar" />
 
+        <!--SearchActivity-->
+        <activity
+            android:name=".screen.search.SearchActivity"
+            android:theme="@style/Theme.Design.NoActionBar" />
     </application>
 
 </manifest>

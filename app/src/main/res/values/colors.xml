@@ -12,6 +12,7 @@
     <color name="color_md_red_900">#ffb71c1c</color>
     <color name="color_md_brown_900">#FF1C1C1C</color>
     <color name="color_md_brown_custom_900">#983e2723</color>
+    <color name="color_hint_text_white">#4dffffff</color>
 
     <!-- Toolbar -->
     <color name="color_md_amber_A100">#ffffe57f</color>
