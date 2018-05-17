@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mobile.lapdv.mymusic.R;
+import com.mobile.lapdv.mymusic.callback.OnGetListDataListener;
 import com.mobile.lapdv.mymusic.callback.OnRecyclerViewItemClick;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.screen.home.adapter.TrackAdapter;
@@ -24,10 +25,10 @@ import java.util.List;
 public class CustomTrackRecyclerView extends ConstraintLayout {
 
     private RecyclerView mRecyclerViewSong;
-    private OnRecyclerViewItemClick<Track> mOnClickItemRecyclerView;
+    private OnGetListDataListener<Track> mOnClickItemRecyclerView;
     private TrackAdapter mTrackAdapter;
 
-    public void setOnClickItemRecyclerView(OnRecyclerViewItemClick<Track> onClickItemRecyclerView) {
+    public void setOnClickItemRecyclerView(OnGetListDataListener<Track> onClickItemRecyclerView) {
         mOnClickItemRecyclerView = onClickItemRecyclerView;
     }
 
@@ -53,7 +54,7 @@ public class CustomTrackRecyclerView extends ConstraintLayout {
                 LinearLayoutManager.HORIZONTAL, false));
     }
 
-    public void setAdapter(List<Track> mData) {
+    public void setAdapter(final List<Track> mData) {
         if (EmptyUtils.isNotEmpty(mData)) {
             mTrackAdapter = new TrackAdapter(getContext());
             mTrackAdapter.setData(mData);
@@ -62,7 +63,7 @@ public class CustomTrackRecyclerView extends ConstraintLayout {
                 @Override
                 public void onItemClick(Track trackModel, int position) {
                     if (mOnClickItemRecyclerView != null) {
-                        mOnClickItemRecyclerView.onItemClick(trackModel, position);
+                        mOnClickItemRecyclerView.onItemClick(mData, position);
                     }
                 }
             });

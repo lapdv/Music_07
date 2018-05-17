@@ -6,8 +6,11 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +28,12 @@ public class ToolBarApp extends ConstraintLayout {
     private View mView;
     private TextView mTextToolBarCenter, mTextToolBarRight, mTextToolBarLeft;
     private ImageView mIconToolBarLeft, mIconToolBarRight;
+    private OnCallBackSearch mOnCallBackSearch;
+    private EditText mEditTextSearch;
+
+    public void setOnCallBackSearch(OnCallBackSearch mOnCallBackSearch) {
+        this.mOnCallBackSearch = mOnCallBackSearch;
+    }
 
     public ToolBarApp(Context context) {
         super(context);
@@ -67,6 +76,7 @@ public class ToolBarApp extends ConstraintLayout {
         mTextToolBarLeft = mView.findViewById(R.id.text_tool_bar_left);
         mIconToolBarLeft = mView.findViewById(R.id.image_toolbar_left);
         mIconToolBarRight = mView.findViewById(R.id.image_toolbar_right);
+        mEditTextSearch = mView.findViewById(R.id.edit_search);
     }
 
     private void initTitle(TypedArray typedArray) {
@@ -85,6 +95,24 @@ public class ToolBarApp extends ConstraintLayout {
         mTextToolBarCenter.setText(title);
         mTextToolBarCenter.setTextColor(color);
         mTextToolBarCenter.setVisibility(isActive ? VISIBLE : GONE);
+        mEditTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (mOnCallBackSearch != null && actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    mOnCallBackSearch.getInputSearch(mEditTextSearch.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void settingSearch(boolean isActive) {
+        mEditTextSearch.setVisibility(isActive ? VISIBLE : GONE);
+        mIconToolBarRight.setImageResource(isActive ?
+                R.drawable.ic_clear : R.drawable.ic_search);
+        mTextToolBarCenter.setVisibility(isActive ? GONE : VISIBLE);
+        mEditTextSearch.setText("");
     }
 
     private void initListener() {
@@ -162,13 +190,35 @@ public class ToolBarApp extends ConstraintLayout {
         }
     }
 
+    public void setTextLeftToolbar(String textRightToolbar) {
+        mTextToolBarLeft.setVisibility(EmptyUtils.isNotEmpty(textRightToolbar) ? VISIBLE : GONE);
+        if (EmptyUtils.isNotEmpty(textRightToolbar)) {
+            mTextToolBarLeft.setText(textRightToolbar);
+            mTextToolBarLeft.setSelected(true);
+        }
+    }
+
     public void setOnClickItemIconToolBar(OnClickItemToolBar mOnClickItemToolBar) {
         this.mOnClickItemToolBar = mOnClickItemToolBar;
+    }
+
+    public ImageView getIconToolBarRight() {
+        return mIconToolBarRight;
+    }
+
+    public void clearEditText() {
+        if (mEditTextSearch != null) {
+            mEditTextSearch.getText().clear();
+        }
     }
 
     public interface OnClickItemToolBar {
         void onItemRight();
 
         void onItemLeft();
+    }
+
+    public interface OnCallBackSearch {
+        void getInputSearch(String input);
     }
 }
