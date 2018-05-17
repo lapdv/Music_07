@@ -13,9 +13,9 @@ public interface FavoriteDataSource {
     interface LocalDataSource {
         void getSongList(OnFetchDataListener<Track> listener);
 
-        boolean deleteFavorite(Track track);
-
         void addFavorite(Track track);
+
+        void removeFavorite(Track track);
     }
 
     interface OnFetchDataListener<T> {

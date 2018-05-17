@@ -3,7 +3,7 @@ package com.mobile.lapdv.mymusic.data.source;
 import android.content.Context;
 
 import com.mobile.lapdv.mymusic.data.model.Track;
-import com.mobile.lapdv.mymusic.data.local.SearchRemoteDataSource;
+import com.mobile.lapdv.mymusic.data.source.remote.SearchRemoteDataSource;
 
 /**
  * Created by lap on 15/05/2018.

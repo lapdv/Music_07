@@ -67,13 +67,4 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public int getContainerId() {
         return 0;
     }
-
-    @Override
-    public void onDestroy() {
-        if (null != mFragmentView) {
-            ViewGroup viewGroup = (ViewGroup) mFragmentView.getParent();
-            viewGroup.removeView(viewGroup);
-        }
-        super.onDestroy();
-    }
 }

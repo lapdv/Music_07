@@ -124,4 +124,11 @@ public class MusicDB extends SQLiteOpenHelper {
         database.close();
         return listFavorite;
     }
+
+    public void delete(Track track) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_FAVORITE_NAME, COLUMN_URI + " = ?",
+                new String[]{String.valueOf(track.getUri())});
+        db.close();
+    }
 }

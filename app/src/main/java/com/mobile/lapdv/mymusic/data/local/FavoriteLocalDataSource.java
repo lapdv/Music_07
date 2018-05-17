@@ -2,9 +2,9 @@ package com.mobile.lapdv.mymusic.data.local;
 
 import android.content.Context;
 
+import com.mobile.lapdv.mymusic.data.local.database.MusicDB;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.data.source.FavoriteDataSource;
-import com.mobile.lapdv.mymusic.data.source.local.database.MusicDB;
 
 /**
  * Created by lap on 14/05/2018.
@@ -32,14 +32,16 @@ public class FavoriteLocalDataSource implements FavoriteDataSource.LocalDataSour
     }
 
     @Override
-    public boolean deleteFavorite(Track track) {
-        return false;
-    }
-
-    @Override
     public void addFavorite(Track track) {
         if (mMusicDB != null) {
             mMusicDB.insertTrackFavorite(track);
+        }
+    }
+
+    @Override
+    public void removeFavorite(Track track) {
+        if (mMusicDB != null) {
+            mMusicDB.delete(track);
         }
     }
 }

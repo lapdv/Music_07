@@ -6,6 +6,7 @@ import android.os.Build;
 import com.mobile.lapdv.mymusic.data.model.Genre;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.data.source.GenreDataSource;
+import com.mobile.lapdv.mymusic.utils.ConfigApi;
 import com.mobile.lapdv.mymusic.utils.Constant;
 import com.mobile.lapdv.mymusic.utils.EmptyUtils;
 
@@ -28,6 +29,11 @@ public class HttpGetAsynTask extends AsyncTask<String, Void, String> {
 
     public HttpGetAsynTask(int position, GenreDataSource.OnFetchDataListener<Genre> listener) {
         mPosition = position;
+        mOnFetchDataListener = listener;
+        mGenresModels = new ArrayList<>();
+    }
+
+    public HttpGetAsynTask(GenreDataSource.OnFetchDataListener<Genre> listener) {
         mOnFetchDataListener = listener;
         mGenresModels = new ArrayList<>();
     }
@@ -57,6 +63,8 @@ public class HttpGetAsynTask extends AsyncTask<String, Void, String> {
             if (mOnFetchDataListener != null) {
                 mOnFetchDataListener.onFetchDataSuccess(mGenresModels);
             }
+        } else {
+            mOnFetchDataListener.onFetchDataFailure(Constant.ERROR_MESSAGE);
         }
     }
 
@@ -98,8 +106,8 @@ public class HttpGetAsynTask extends AsyncTask<String, Void, String> {
                     .getInt(Track.TrackEntity.PLAYBACK_COUNT));
             trackModel.setTitle(jsonObjectTrack
                     .getString(Track.TrackEntity.TITLE));
-            trackModel.setUri(jsonObjectTrack
-                    .getString(Track.TrackEntity.URI));
+            trackModel.setUri(ConfigApi.getUriStream(jsonObjectTrack
+                    .getString(Track.TrackEntity.URI)));
             String user = jsonObjectTrack.getString(Track.TrackEntity.USER);
             JSONObject jsonObjectUser = new JSONObject(user);
             trackModel.setUsername(jsonObjectUser
