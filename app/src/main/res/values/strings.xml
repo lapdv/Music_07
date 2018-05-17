@@ -16,5 +16,13 @@
     <string name="string_action_remove_favorite">Remove Favorite</string>
     <string name="string_title_remove_favorite">Remove Favorite</string>
     <string name="string_no_data_favorite">No data favorite!!!</string>
+    <string name="string_duration_start">00:00</string>
+    <string name="string_title_rate">Do you rate this app</string>
+    <string name="string_message_rate">You like rating app  \n Please write a comment and rating</string>
+    <string name="string_btn_rate">Rate</string>
+    <string name="string_btn_rate_later">Later</string>
+    <string name="string_btn_no_thanks">No thanks</string>
+    <string name="string_about">About</string>
+    <string name="string_message_about">Tranner : DoanVanToan \nTranee : DinhVanLap</string>
 
 </resources>

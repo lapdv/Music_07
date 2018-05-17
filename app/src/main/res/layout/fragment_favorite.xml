@@ -6,6 +6,17 @@
     android:background="@color/color_custom_white"
     android:paddingTop="@dimen/dimen_small">
 
+    <TextView
+        android:id="@+id/text_no_data_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/string_no_data_favorite"
+        android:textColor="@color/color_md_amber_900"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_track"
         android:layout_width="match_parent"

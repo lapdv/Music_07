@@ -9,31 +9,61 @@
     <TextView
         android:id="@+id/text_tool_bar_left"
         style="@style/StyleTextViewToolBar"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@color/color_md_amber_900"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/image_toolbar_left"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_tool_bar_right"
         style="@style/StyleTextViewToolBar"
         android:padding="@dimen/dimen_large"
+        android:textSize="@dimen/text_size_large"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_width_8dp"
+        android:layout_marginLeft="?attr/actionBarSize"
+        android:layout_marginRight="?attr/actionBarSize"
+        android:layout_marginTop="@dimen/layout_width_8dp"
+        android:gravity="start"
+        android:hint="@string/string_text_hint_search"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:paddingLeft="@dimen/spacing_small"
+        android:textColor="@color/color_white"
+        android:textColorHint="@color/color_hint_text_white"
+        android:textSize="@dimen/text_size_large"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/image_toolbar_left"
+        app:layout_constraintRight_toLeftOf="@+id/image_toolbar_right"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_toolbar_left"
         style="@style/StyleTextViewToolBar"
         android:padding="@dimen/dimen_large"
-        app:srcCompat="@drawable/ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="@dimen/text_size_xlarge"
         android:textColor="@color/color_white"
+        android:textSize="@dimen/text_size_xlarge"
         app:layout_constraintBottom_toBottomOf="@id/image_toolbar_left"
         app:layout_constraintEnd_toStartOf="@id/image_toolbar_right"
         app:layout_constraintTop_toTopOf="parent" />
