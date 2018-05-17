@@ -25,5 +25,7 @@ public interface FavoriteContract {
      */
     interface Presenter extends BaseMvpPresenter<View> {
         void getSongs();
+
+        void removeFavorite(Track track);
     }
 }

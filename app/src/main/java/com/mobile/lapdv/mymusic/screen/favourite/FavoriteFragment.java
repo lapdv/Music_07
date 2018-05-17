@@ -3,12 +3,16 @@ package com.mobile.lapdv.mymusic.screen.favourite;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseFragment;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.data.source.FavoriteRepository;
 import com.mobile.lapdv.mymusic.screen.favourite.adapter.FavoriteAdapter;
+import com.mobile.lapdv.mymusic.screen.offline.DownLoadManager;
+import com.mobile.lapdv.mymusic.screen.offline.DownloadReceiver;
 import com.mobile.lapdv.mymusic.utils.EmptyUtils;
 
 import java.util.List;
@@ -21,6 +25,7 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
 
     private FavoriteContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
+    private TextView mTextViewNoData;
     private FavoriteAdapter mFavoriteAdapter;
 
     @Override
@@ -34,6 +39,7 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
     }
 
     private void findView(View view) {
+        mTextViewNoData = view.findViewById(R.id.text_no_data_favorite);
         mRecyclerView = view.findViewById(R.id.recycler_track);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
     }
@@ -46,7 +52,28 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
     @Override
     protected void initData() {
         mFavoriteAdapter = new FavoriteAdapter(getBaseActivity());
-        mPresenter.getSongs();
+        mFavoriteAdapter.setOnFavoriteListener(new FavoriteAdapter.OnFavoriteListener() {
+            @Override
+            public void onRemoveFavorite(Track track) {
+                if (EmptyUtils.isNotEmpty(track)) {
+                    mFavoriteAdapter.deleteItem(track);
+                    mPresenter.removeFavorite(track);
+                    Toast.makeText(getContext(),
+                            R.string.string_title_remove_favorite,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onDowload(Track track) {
+                if (true) {
+                    DownLoadManager.getInstance().requestDownload(getBaseActivity(), track);
+                } else {
+                    Toast.makeText(getBaseActivity(), R.string.string_is_downloadable
+                            , Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -64,5 +91,25 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
 
     @Override
     public void getSongsFailure(String messages) {
+        mTextViewNoData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        DownLoadManager.unregisterReceiver(getBaseActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.getSongs();
+        DownLoadManager.registerReceiver(getBaseActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        DownLoadManager.unregisterReceiver(getBaseActivity());
     }
 }

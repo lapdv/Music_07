@@ -1,6 +1,9 @@
 package com.mobile.lapdv.mymusic.data.source.remote;
 
+import android.content.Context;
+
 import com.mobile.lapdv.mymusic.BuildConfig;
+import com.mobile.lapdv.mymusic.data.local.database.MusicDB;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.data.source.SearchDataSource;
 import com.mobile.lapdv.mymusic.data.source.remote.network.SearchTrackAsynTask;
@@ -13,13 +16,15 @@ import com.mobile.lapdv.mymusic.utils.ConfigApi;
 public class SearchRemoteDataSource implements SearchDataSource.RemoteDataSource {
 
     private static SearchRemoteDataSource sSearchRemoteDataSource;
+    private MusicDB mMusicDB;
 
-    private SearchRemoteDataSource() {
+    private SearchRemoteDataSource(Context context) {
+        mMusicDB = MusicDB.getInstance(context);
     }
 
-    public static SearchRemoteDataSource getInstance() {
+    public static SearchRemoteDataSource getInstance(Context context) {
         if (null == sSearchRemoteDataSource) {
-            sSearchRemoteDataSource = new SearchRemoteDataSource();
+            sSearchRemoteDataSource = new SearchRemoteDataSource(context);
         }
         return sSearchRemoteDataSource;
     }
@@ -34,5 +39,12 @@ public class SearchRemoteDataSource implements SearchDataSource.RemoteDataSource
                 .append(ConfigApi.CONFIG_PARAM_SEARCH)
                 .append(keyWord).toString();
         new SearchTrackAsynTask(listener).execute(url);
+    }
+
+    @Override
+    public void addFavorite(Track track) {
+        if (mMusicDB != null) {
+            mMusicDB.insertTrackFavorite(track);
+        }
     }
 }
