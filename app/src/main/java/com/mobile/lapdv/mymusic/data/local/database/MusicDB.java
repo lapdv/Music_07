@@ -105,24 +105,47 @@ public class MusicDB extends SQLiteOpenHelper {
         database.close();
     }
 
+    public List<Track> getTrackOffline() {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_TRACK_OFFLINE_NAME, null,
+                null, null, null, null, null);
+        List<Track> listFavorite = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            listFavorite.add(getTrack(cursor));
+        }
+        cursor.close();
+        database.close();
+        return listFavorite;
+    }
+
     public List<Track> getFavoriteList() {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_FAVORITE_NAME, null,
                 null, null, null, null, null);
         List<Track> listFavorite = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            Track favorite = new Track();
-            favorite.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)));
-            favorite.setUri(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URI)));
-            favorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)));
-            favorite.setAvatarUrl(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AVATAR_URL)));
-            favorite.setUsername(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME)));
-            favorite.setDuration(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_DURATION)));
-            listFavorite.add(favorite);
+        try {
+            while (cursor.moveToNext()) {
+                listFavorite.add(getTrack(cursor));
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+                cursor = null;
+                database.close();
+            }
         }
-        cursor.close();
-        database.close();
         return listFavorite;
+    }
+
+    private Track getTrack(Cursor cursor) {
+        Track track = new Track();
+        track.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)));
+        track.setUri(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URI)));
+        track.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)));
+        track.setAvatarUrl(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AVATAR_URL)));
+        track.setUsername(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME)));
+        track.setDuration(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_DURATION)));
+        return track;
     }
 
     public void delete(Track track) {

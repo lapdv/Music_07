@@ -28,4 +28,10 @@ public class GenreRepository implements GenreDataSource.RemoteDataSource {
     public void getSongsRemote(GenreDataSource.OnFetchDataListener<Genre> listener) {
         mRemoteDataSource.getSongsRemote(listener);
     }
+
+    @Override
+    public void getSongsMoreRemote(String type, int limit, int offset,
+                                   GenreDataSource.OnFetchDataListener<Genre> listene) {
+        mRemoteDataSource.getSongsMoreRemote(type, limit, offset, listene);
+    }
 }

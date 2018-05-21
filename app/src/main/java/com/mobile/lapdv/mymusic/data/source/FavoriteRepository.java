@@ -38,6 +38,13 @@ public class FavoriteRepository implements FavoriteDataSource.LocalDataSource {
     }
 
     @Override
+    public void addTrackOffline(Track track) {
+        if (mLocalDataSource != null) {
+            mLocalDataSource.addFavorite(track);
+        }
+    }
+
+    @Override
     public void removeFavorite(Track track) {
         if (mLocalDataSource != null) {
             mLocalDataSource.removeFavorite(track);

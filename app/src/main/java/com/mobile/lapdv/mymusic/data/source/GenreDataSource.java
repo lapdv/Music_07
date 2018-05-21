@@ -2,6 +2,7 @@ package com.mobile.lapdv.mymusic.data.source;
 
 import com.mobile.lapdv.mymusic.data.model.Genre;
 import com.mobile.lapdv.mymusic.data.model.Track;
+import com.mobile.lapdv.mymusic.screen.track.TrackMorePresenter;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface GenreDataSource {
 
     interface RemoteDataSource {
         void getSongsRemote(OnFetchDataListener<Genre> listener);
+
+        void getSongsMoreRemote(String type, int limit, int offset,OnFetchDataListener<Genre> listene);
     }
 
     interface OnFetchDataListener<T> {

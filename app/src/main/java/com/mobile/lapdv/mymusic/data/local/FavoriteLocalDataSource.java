@@ -39,6 +39,13 @@ public class FavoriteLocalDataSource implements FavoriteDataSource.LocalDataSour
     }
 
     @Override
+    public void addTrackOffline(Track track) {
+        if (mMusicDB != null) {
+            mMusicDB.insertTrackOffline(track);
+        }
+    }
+
+    @Override
     public void removeFavorite(Track track) {
         if (mMusicDB != null) {
             mMusicDB.delete(track);

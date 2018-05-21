@@ -8,11 +8,12 @@ import android.widget.Toast;
 
 import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseFragment;
+import com.mobile.lapdv.mymusic.callback.OnGetListDataListener;
+import com.mobile.lapdv.mymusic.data.local.database.MusicDB;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.data.source.FavoriteRepository;
 import com.mobile.lapdv.mymusic.screen.favourite.adapter.FavoriteAdapter;
 import com.mobile.lapdv.mymusic.screen.offline.DownLoadManager;
-import com.mobile.lapdv.mymusic.screen.offline.DownloadReceiver;
 import com.mobile.lapdv.mymusic.utils.EmptyUtils;
 
 import java.util.List;
@@ -21,7 +22,8 @@ import java.util.List;
  * Created by lap on 14/05/2018.
  */
 
-public class FavoriteFragment extends BaseFragment implements FavoriteContract.View {
+public class FavoriteFragment extends BaseFragment implements FavoriteContract.View
+        , OnGetListDataListener<Track> {
 
     private FavoriteContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
@@ -66,7 +68,8 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
 
             @Override
             public void onDowload(Track track) {
-                if (true) {
+                if (track.isDownloadable()) {
+                    mPresenter.addTrackOffline(track);
                     DownLoadManager.getInstance().requestDownload(getBaseActivity(), track);
                 } else {
                     Toast.makeText(getBaseActivity(), R.string.string_is_downloadable
@@ -74,11 +77,11 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
                 }
             }
         });
+        mFavoriteAdapter.setTrackOnItemClick(this);
     }
 
     @Override
     public void onClick(View view) {
-
     }
 
     @Override
@@ -111,5 +114,12 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
     public void onDestroy() {
         super.onDestroy();
         DownLoadManager.unregisterReceiver(getBaseActivity());
+    }
+
+    @Override
+    public void onItemClick(List<Track> list, int position) {
+        if (getBaseActivity() != null) {
+            getBaseActivity().gotoPlayMusicActivity(list, position);
+        }
     }
 }

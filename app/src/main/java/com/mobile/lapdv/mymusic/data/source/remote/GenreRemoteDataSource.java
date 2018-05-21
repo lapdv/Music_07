@@ -33,4 +33,11 @@ public class GenreRemoteDataSource implements GenreDataSource.RemoteDataSource {
             new HttpGetAsynTask(i, listener).executeTask(url);
         }
     }
+
+    @Override
+    public void getSongsMoreRemote(String type, int limit, int offset,
+                                   GenreDataSource.OnFetchDataListener<Genre> listener) {
+        String url = ConfigApi.getUrl(type, String.valueOf(limit), String.valueOf(offset));
+        new HttpGetAsynTask(listener).executeTask(url);
+    }
 }
