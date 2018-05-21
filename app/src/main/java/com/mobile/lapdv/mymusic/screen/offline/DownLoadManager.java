@@ -22,7 +22,7 @@ import java.io.File;
 
 public class DownLoadManager {
 
-    public static final String DIRECTORYNAME = "MyMusic";
+    private static final String DIRECTORYNAME = "MyMusic";
     private static DownLoadManager sDownloadManager;
     private static DownloadReceiver mDownloadReceiver;
     private static DownloadManager sDownloadManagerSystem;
@@ -52,12 +52,19 @@ public class DownLoadManager {
         }
     }
 
+    /**
+     * request dowload
+     * link test :"https://api.soundcloud.com/tracks/259412502/download?
+     * client_id=";
+     *
+     * @param context
+     * @param track
+     */
     public static void requestDownload(Context context, Track track) {
         String url = ConfigApi.getUrlDownload(track.getUri());
-        String test = "https://api.soundcloud.com/tracks/259412502/download?client_id=a7Ucuq0KY8Ksn8WzBG6wj4x6pcId6BpU";
         sDownloadManagerSystem = (DownloadManager)
                 context.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(test));
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI
                 | DownloadManager.Request.NETWORK_MOBILE);
         request.setAllowedOverRoaming(false);

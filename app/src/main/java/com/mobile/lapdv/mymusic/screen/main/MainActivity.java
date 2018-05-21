@@ -51,11 +51,6 @@ public class MainActivity extends BasePlayerActivity
     private View mLayoutBottom;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void initView() {
         mMainPresenter = new MainPresenter();
         mMainPresenter.onAttach(this);
