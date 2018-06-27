@@ -27,5 +27,7 @@ public interface FavoriteContract {
         void getSongs();
 
         void removeFavorite(Track track);
+
+        void addTrackOffline(Track track);
     }
 }

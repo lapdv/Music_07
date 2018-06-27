@@ -3,6 +3,7 @@ package com.mobile.lapdv.mymusic.utils;
 import android.support.annotation.StringDef;
 
 import com.mobile.lapdv.mymusic.BuildConfig;
+import com.mobile.lapdv.mymusic.data.model.Track;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,8 +17,16 @@ import java.util.List;
 
 public class ConfigApi {
 
-    private static String BASE_URL = "https://api-v2.soundcloud.com/charts";
-    private static String GET_KIND_TOP = "?kind=top";
+    public static final String BASE_URL = "https://api-v2.soundcloud.com/charts";
+    public static final String BASE_URL_SEARCH = "http://api.soundcloud.com/tracks";
+    public static final String GET_KIND_TOP = "?kind=top";
+    public static final String GET_FILLTER = "?filter=public";
+    public static final String CONFIG_CLIENT_ID = "&client_id=";
+    public static final String LIMIT_DEFAULT = "&limit=20";
+    public static final String CONFIG_PARAM_SEARCH = "&q=";
+    private static final String STREAM = "/stream";
+    private static final String CLIENT_ID = "?client_id=";
+    private static final String DOWNLOAD = "download/";
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({Api.API_ALL_MUSIC,
@@ -58,5 +67,17 @@ public class ConfigApi {
                 .append("&offset=")
                 .append(offset);
         return stringBuilder.toString();
+    }
+
+    public static String getUriStream(String uri) {
+        StringBuilder stringBuilder = new StringBuilder(uri)
+                .append(STREAM)
+                .append(CLIENT_ID)
+                .append(BuildConfig.API_KEY);
+        return stringBuilder.toString();
+    }
+
+    public static String getUrlDownload(String uri) {
+        return EmptyUtils.isNotEmpty(uri) ? uri.replace(STREAM, DOWNLOAD) : "";
     }
 }

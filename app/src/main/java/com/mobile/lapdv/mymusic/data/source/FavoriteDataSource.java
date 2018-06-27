@@ -15,6 +15,8 @@ public interface FavoriteDataSource {
 
         void addFavorite(Track track);
 
+        void addTrackOffline(Track track);
+
         void removeFavorite(Track track);
     }
 

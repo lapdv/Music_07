@@ -4,9 +4,9 @@
     <color name="color_white">#FFFFFF</color>
     <color name="color_custom_white">#e1e1e1</color>
     <color name="color_black">#000000</color>
-    <color name="colorPrimary">#FF1E1E1E</color>
-    <color name="colorPrimaryDark">#FF3B3B3B</color>
-    <color name="colorAccent">#FF2D2D2D</color>
+    <color name="colorPrimary">#121212</color>
+    <color name="colorPrimaryDark">#232323</color>
+    <color name="colorAccent">#3e94a7</color>
     <color name="colorAccentBlur">#c42d2d2d</color>
     <color name="md_brown_800">#ff4e342e</color>
     <color name="color_md_red_900">#ffb71c1c</color>
@@ -21,7 +21,7 @@
     <color name="color_md_amber">#FFDA44</color>
 
     <!--Black-->
-    <color name="black_transparent">#e01e1e1e</color>
+    <color name="black_transparent">#f01e1e1e</color>
     <color name="black_transparent_item">#f21e1e1e</color>
 
 </resources>

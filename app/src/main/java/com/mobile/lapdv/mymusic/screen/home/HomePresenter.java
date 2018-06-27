@@ -3,7 +3,7 @@ package com.mobile.lapdv.mymusic.screen.home;
 import com.mobile.lapdv.mymusic.base.mvp.BasePresenter;
 import com.mobile.lapdv.mymusic.data.model.Genre;
 import com.mobile.lapdv.mymusic.data.source.GenreDataSource;
-import com.mobile.lapdv.mymusic.data.source.GenreReopository;
+import com.mobile.lapdv.mymusic.data.source.GenreRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,10 +17,10 @@ import java.util.List;
 public class HomePresenter extends BasePresenter<HomeContract.View>
         implements HomeContract.Presenter, GenreDataSource.OnFetchDataListener<Genre> {
 
-    private GenreReopository mGenreReopository;
+    private GenreRepository mGenreReopository;
     private List<Genre> mGenresModels;
 
-    public HomePresenter(GenreReopository reopository) {
+    public HomePresenter(GenreRepository reopository) {
         mGenreReopository = reopository;
         mGenresModels = new ArrayList<>();
     }

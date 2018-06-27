@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.callback.OnRecyclerViewItemClick;
 
 import java.util.ArrayList;
@@ -20,9 +22,11 @@ public abstract class BaseRecyclerAdapter<T, VH extends BaseViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private List<T> mData = new ArrayList<>();
+    protected List<T> mData = new ArrayList<>();
     private VH mHolder;
     private OnRecyclerViewItemClick<T> mOnRecyclerViewItemClick;
+    private int VIEW_TYPE_ITTEM = 0;
+    private int VIEW_TYPE_PROGRESS = 1;
 
     public void setOnRecyclerViewItemClick(OnRecyclerViewItemClick<T> onRecyclerViewItemClick) {
         this.mOnRecyclerViewItemClick = onRecyclerViewItemClick;
@@ -35,7 +39,18 @@ public abstract class BaseRecyclerAdapter<T, VH extends BaseViewHolder>
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_ITTEM) {
+            return onCreateRecyclerViewHolder(parent, viewType);
+        } else if (viewType == VIEW_TYPE_PROGRESS) {
+            View view = getInflater().inflate(R.layout.item_loadding, parent, false);
+            return new LoadMoreHolder(view);
+        }
         return onCreateRecyclerViewHolder(parent, viewType);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mData.get(position) != null ? VIEW_TYPE_ITTEM : VIEW_TYPE_PROGRESS;
     }
 
     /**
@@ -142,5 +157,27 @@ public abstract class BaseRecyclerAdapter<T, VH extends BaseViewHolder>
             return null;
         }
         return mData.get(position);
+    }
+
+    public void removeItemLoadMore(T t) {
+        int index = mData.indexOf(t);
+        if (index >= 0 && index < mData.size()) {
+            mData.remove(index);
+        }
+        notifyItemRemoved(index);
+    }
+
+    public void addItemLoaMore(T item) {
+        mData.add(item);
+        notifyItemInserted(mData.size() - 1);
+    }
+
+    public class LoadMoreHolder extends RecyclerView.ViewHolder {
+        ProgressBar progressBar;
+
+        public LoadMoreHolder(View itemView) {
+            super(itemView);
+            progressBar = itemView.findViewById(R.id.progress_loadding);
+        }
     }
 }

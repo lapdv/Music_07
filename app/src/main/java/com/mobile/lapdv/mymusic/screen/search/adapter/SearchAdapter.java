@@ -2,6 +2,7 @@ package com.mobile.lapdv.mymusic.screen.search.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.adapter.BaseRecyclerAdapter;
 import com.mobile.lapdv.mymusic.base.adapter.BaseViewHolder;
+import com.mobile.lapdv.mymusic.callback.OnGetListDataListener;
 import com.mobile.lapdv.mymusic.data.model.Track;
 import com.mobile.lapdv.mymusic.utils.EmptyUtils;
 import com.mobile.lapdv.mymusic.utils.GlideUtils;
@@ -22,10 +24,15 @@ import com.mobile.lapdv.mymusic.utils.GlideUtils;
 
 public class SearchAdapter extends BaseRecyclerAdapter<Track, SearchAdapter.SearchHolder> {
 
+    private OnGetListDataListener<Track> mTrackOnRecyclerViewItemClick;
     private OnSearchListener mOnSearchListener;
 
     public void setOnSearchListener(OnSearchListener onSearchListener) {
         mOnSearchListener = onSearchListener;
+    }
+
+    public void setTrackOnItemClick(OnGetListDataListener<Track> trackOnRecyclerViewItemClick) {
+        mTrackOnRecyclerViewItemClick = trackOnRecyclerViewItemClick;
     }
 
     public SearchAdapter(Context context) {
@@ -38,6 +45,19 @@ public class SearchAdapter extends BaseRecyclerAdapter<Track, SearchAdapter.Sear
         return new SearchHolder(view, mOnSearchListener);
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+        super.onBindViewHolder(holder, position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTrackOnRecyclerViewItemClick != null) {
+                    mTrackOnRecyclerViewItemClick.onItemClick(mData, position);
+                }
+            }
+        });
+    }
+
     public static class SearchHolder extends BaseViewHolder<Track>
             implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
         private ImageView mImageTrack, mImageMore;
@@ -46,9 +66,9 @@ public class SearchAdapter extends BaseRecyclerAdapter<Track, SearchAdapter.Sear
         private Track mTrack;
         private OnSearchListener mOnSearchListener;
 
-        public SearchHolder(@NonNull View itemView, OnSearchListener onSearchListener) {
+        public SearchHolder(@NonNull View itemView, OnSearchListener listener) {
             super(itemView);
-            mOnSearchListener = onSearchListener;
+            mOnSearchListener = listener;
             mImageTrack = itemView.findViewById(R.id.image_track);
             mImageMore = itemView.findViewById(R.id.image_more);
             mImageMore.setOnClickListener(this);
@@ -63,9 +83,7 @@ public class SearchAdapter extends BaseRecyclerAdapter<Track, SearchAdapter.Sear
         public void binData(final Track track, int position) {
             if (EmptyUtils.isNotEmpty(track)) {
                 mTrack = track;
-                GlideUtils
-                        .loadImage(track.getAvatarUrl(),
-                                mImageTrack);
+                GlideUtils.loadImage(this.getContext(), mImageTrack, track.getAvatarUrl());
                 mTitleTrack.setText(track.getTitle());
                 mUserTrack.setText(track.getUsername());
             }

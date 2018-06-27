@@ -1,21 +1,19 @@
 package com.mobile.lapdv.mymusic.screen.home;
 
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.mobile.lapdv.mymusic.R;
 import com.mobile.lapdv.mymusic.base.BaseFragment;
-import com.mobile.lapdv.mymusic.callback.OnRecyclerViewItemClick;
+import com.mobile.lapdv.mymusic.callback.OnGetListDataListener;
 import com.mobile.lapdv.mymusic.data.model.Genre;
 import com.mobile.lapdv.mymusic.data.model.Track;
-import com.mobile.lapdv.mymusic.data.source.GenreReopository;
+import com.mobile.lapdv.mymusic.data.source.GenreRepository;
 import com.mobile.lapdv.mymusic.screen.home.adapter.GenresAdapter;
-import com.mobile.lapdv.mymusic.screen.playmusic.PlayMusicActivity;
+import com.mobile.lapdv.mymusic.utils.EmptyUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +24,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     private HomeContract.Presenter mHomePresenter;
     private RecyclerView mGenresRecyclerView;
+    private ProgressBar mProgressBar;
     private GenresAdapter mGenresAdapter;
 
     @Override
     protected void initView(View view) {
+        mProgressBar = view.findViewById(R.id.progress_loadding);
         mGenresRecyclerView = view.findViewById(R.id.recycler_genres);
         mGenresRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
     }
@@ -41,9 +41,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     protected void initData() {
-        mHomePresenter = new HomePresenter(GenreReopository.getInstance());
+        mHomePresenter = new HomePresenter(GenreRepository.getInstance());
         mHomePresenter.onAttach(this);
         mGenresAdapter = new GenresAdapter(getBaseActivity());
+        mProgressBar.setVisibility(View.VISIBLE);
         mHomePresenter.getSongs();
     }
 
@@ -54,19 +55,23 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void getSongsSuccess(final List<Genre> genresModels) {
-        mGenresAdapter.setData(genresModels);
-        mGenresRecyclerView.setAdapter(mGenresAdapter);
-        mGenresAdapter.setTrackOnItemClick(new OnRecyclerViewItemClick<Track>() {
-            @Override
-            public void onItemClick(Track track, int position) {
-                getBaseActivity().openActivity(PlayMusicActivity.class);
-            }
-        });
-        //TODO start service send data
+        if (EmptyUtils.isNotEmpty(genresModels)) {
+            mGenresAdapter.setData(genresModels);
+            mGenresRecyclerView.setAdapter(mGenresAdapter);
+            mProgressBar.setVisibility(View.GONE);
+            mGenresAdapter.setTrackOnItemClick(new OnGetListDataListener<Track>() {
+                @Override
+                public void onItemClick(List<Track> list, int position) {
+                    if (getBaseActivity() != null) {
+                        getBaseActivity().gotoPlayMusicActivity(list, position);
+                    }
+                }
+            });
+        }
     }
 
     @Override
     public void getSongsFailure(String messages) {
-        // TODO: 09/05/2018
+        mProgressBar.setVisibility(View.GONE);
     }
 }

@@ -35,8 +35,6 @@ public class DownloadReceiver extends BroadcastReceiver {
                     context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
             Toast.makeText(context, R.string.string_download_succes, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, R.string.string_download_false, Toast.LENGTH_SHORT).show();
         }
     }
 }

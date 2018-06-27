@@ -36,6 +36,11 @@ public class FavoritePresenter extends BasePresenter<FavoriteContract.View>
     }
 
     @Override
+    public void addTrackOffline(Track track) {
+        mFavoriteRepository.addTrackOffline(track);
+    }
+
+    @Override
     public void onFetchDataSuccess(List<Track> data) {
         if (EmptyUtils.isNotEmpty(data)) {
             getView().getSongsSuccess(data);

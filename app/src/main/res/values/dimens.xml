@@ -4,8 +4,12 @@
     <dimen name="dimen_small">10dp</dimen>
     <dimen name="dimen_normal">10dp</dimen>
     <dimen name="dimen_large">15dp</dimen>
+    <dimen name="layout_width_30dp">30dp</dimen>
     <dimen name="layout_width_40dp">40dp</dimen>
+    <dimen name="layout_width_45dp">45dp</dimen>
+    <dimen name="layout_width_50dp">50dp</dimen>
     <dimen name="layout_height_65dp">65dp</dimen>
+    <dimen name="dp_70">70dp</dimen>
     <dimen name="default_tba_title_text_size">18sp</dimen>
 
     <!--navigation-->

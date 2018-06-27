@@ -45,9 +45,7 @@ public class TrackAdapter extends BaseRecyclerAdapter<Track, TrackAdapter.TrackH
         @Override
         public void binData(Track trackModel, int position) {
             if (EmptyUtils.isNotEmpty(trackModel)) {
-                GlideUtils
-                        .loadImage(trackModel.getAvatarUrl(),
-                                mImageTrack);
+                GlideUtils.loadImage(this.getContext(), mImageTrack, trackModel.getAvatarUrl());
                 mTitleTrack.setText(trackModel.getTitle());
                 mUserTrack.setText(trackModel.getUsername());
             }
